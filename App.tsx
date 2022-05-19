@@ -26,20 +26,23 @@ import {IncomeExpense} from './src/Components/IncomeExpense/IncomeExpense';
 import {TransactionHIstory} from './src/Components/TransactionHistory/TrasactionHistory';
 import {store} from './src/Store/store';
 import {Provider} from 'react-redux';
-
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor} from './src/Store/store';
 const App = () => {
   return (
     <Provider store={store}>
-      <View style={{flex: 1}}>
-        <StatusBar />
+      <PersistGate persistor={persistor}>
+        <View style={{flex: 1}}>
+          <StatusBar />
 
-        <Header />
-        <HeadingTxt title={'hello and welcome to App'} />
-        <AccountSummry />
-        <IncomeExpense />
-        <TransactionHIstory />
-        <AddTransaction />
-      </View>
+          <Header />
+          <HeadingTxt title={'hello and welcome to App'} />
+          <AccountSummry />
+          <IncomeExpense />
+          <TransactionHIstory />
+          <AddTransaction />
+        </View>
+      </PersistGate>
     </Provider>
   );
 };

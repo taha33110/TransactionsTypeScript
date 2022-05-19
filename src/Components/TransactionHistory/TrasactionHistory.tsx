@@ -17,13 +17,8 @@ import {RootState} from '../../Store/store';
 import {useSelector, useDispatch} from 'react-redux';
 
 export const TransactionHIstory = () => {
-  interface test {
-    id: number;
-    desc: string;
-    value: number;
-  }
-  const data = useSelector((state: RootState) => state.Add);
-
+  const data = useSelector((state: RootState) => state.data);
+  console.log({data});
   return (
     <View style={styles.container}>
       <HeadingTxt title="Transaction History" />

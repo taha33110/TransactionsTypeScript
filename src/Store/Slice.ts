@@ -1,40 +1,31 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import produce from 'immer';
-
-const initialState: any = [];
+import {PURGE} from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const initialState: any = {
+  data: [],
+};
 
 interface data {
   id: number;
   desc: string;
   value: number;
 }
-// const nextState = produce(baseS, (draftState) => {
-//   // "mutate" the draft array
-//   draftState.push(state);
-//   // "mutate" the nested state
-//   draftState[1].done = true;
-// });
 
 export const TSlice = createSlice({
   name: 'Add',
   initialState,
+
   reducers: {
     addT: (state: any, action: PayloadAction<data>) => {
-      state.push(action.payload);
-      // return async (state: any) => {
-      //   try {
-      //     await AsyncStorage.setItem('@storage_Key', state);
-      //   } catch (e) {
-      //     // saving error
-      //   }
-      // };
+      state.data.push(action.payload);
     },
     del: (state: any, action: PayloadAction<any>) => {
-      return state.filter((e: any) => e.id !== action.payload);
+      const test = state.data.filter((e: any) => e.id != action.payload);
+      return {data: test};
     },
 
     zero: (state: any, action: PayloadAction<any>) => {
-      state.pop(action.payload);
+      state.data.pop(action.payload);
     },
   },
 });

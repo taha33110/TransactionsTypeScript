@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {
   Alert,
@@ -16,26 +16,30 @@ import {useSelector, useDispatch} from 'react-redux';
 import {zero} from '../../Store/Slice';
 export const AccountSummry = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.Add);
-  const amount = data.map((e: any) => e.value);
-  const total = amount
-    .reduce((acc: number, item: number) => (acc += item), 0)
-    .toFixed(2);
-  console.log({data});
-  const noAmount = () => {
-    dispatch(zero(total));
-  };
+  const [temp, setTemp] = React.useState(0);
+  const data = useSelector((state: RootState) => state.data);
+  useEffect(() => {
+    const amount = data.map((e: any) => e.value);
+    const total = amount
+      .reduce((acc: number, item: number) => (acc += item), 0)
+      .toFixed(2);
+    setTemp(total);
 
-  if (total < 0) {
-    noAmount();
-    Alert.alert('sorry you dont have amount ');
-  }
+    const noAmount = () => {
+      dispatch(zero(temp));
+    };
+
+    if (temp < 0) {
+      noAmount();
+      Alert.alert('sorry you dont have amount ');
+    }
+  });
 
   return (
     <View style={AccountSummryStyle.container}>
       <Text style={AccountSummryStyle.font}>Current Balance</Text>
       <Text style={{...AccountSummryStyle.font, fontStyle: 'normal'}}>
-        ${total}
+        ${temp}
       </Text>
     </View>
   );

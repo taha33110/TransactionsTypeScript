@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {
   Alert,
@@ -21,8 +21,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {del} from '../../Store/Slice';
 export const Transactions = (props: {transactions: any}) => {
   const dispatch = useDispatch();
+
   let color: string;
   const id = props.transactions.id;
+  // const tempId = id.map((e: any) => e.id);
   const sign = props.transactions.value > 0 ? '+' : '-';
   if (sign == '+') {
     color = 'green';
@@ -32,7 +34,6 @@ export const Transactions = (props: {transactions: any}) => {
 
   function remove() {
     dispatch(del(id));
-    console.log({id});
   }
 
   return (
